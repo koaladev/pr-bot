@@ -15,12 +15,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const meow = require('meow');
-const path = require('path');
-const logHelper = require('../src/utils/log-helper');
-const TravisBotRunner = require('../src/controllers/bot-runner');
+const meow = require("meow");
+const path = require("path");
+const logHelper = require("../src/utils/log-helper");
+const CircleBotRunner = require("../src/controllers/bot-runner");
 
-const cli = meow(`
+const cli = meow(
+  `
     Usage
       $ pr-bot
 
@@ -30,20 +31,21 @@ const cli = meow(`
     Examples
       $ pr-bot
       $ pr-bot --config ./config/my-pr-bot-config.js
-`, {
+`,
+  {
     alias: {
-        c: 'config'
+      c: "config"
     }
-});
+  }
+);
 
 const options = {};
 if (cli.flags.config) {
   options.configPath = path.resolve(cli.flags.config);
 }
 
-const travisBotRuner = new TravisBotRunner(options);
-travisBotRuner.run()
-.catch((err) => {
+const circleBotRunner = new CircleBotRunner(options);
+circleBotRunner.run().catch(err => {
   logHelper.error(err);
   process.exit(1);
 });
