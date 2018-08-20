@@ -171,7 +171,7 @@ class CircleBot {
         }
 
         return { beforePath, afterPath };
-      });
+      }).catch(err => console.log(err));
   }
 
   _runPlugins(plugins, details) {

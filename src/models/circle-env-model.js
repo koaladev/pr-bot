@@ -4,7 +4,7 @@ class CircleEnvModel {
   }
 
   get isPullRequest() {
-    return process.env["CI_PULL_REQUEST"] === "pull_request";
+    return process.env["CI_PULL_REQUEST"];
   }
 
   get repoDetails() {
