@@ -36,8 +36,12 @@ class CircleBot {
   run() {
     const circleEnv = new CircleEnvModel();
 
+
     return this._readConfig().then(configuration => {
       let repoDetails = circleEnv.repoDetails;
+      console.log('runner repoDetails', repoDetails);
+      console.log('runner configuration', configuration);
+      console.log('runner circleEnv', json.stringify(circleEnv, null, 4));
       if (!repoDetails) {
         repoDetails = configuration.repoDetails;
       }
