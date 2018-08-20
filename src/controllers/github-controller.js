@@ -66,6 +66,7 @@ class GithubController {
    * Get the details for a specific PR
    */
   getPRDetails({number}) {
+    console.log('getPRDetails', number);
     return this._github.pullRequests.get({
       owner: this._owner,
       repo: this._repo,
@@ -74,6 +75,7 @@ class GithubController {
   }
 
   getRepoDetails() {
+    console.log('getRepoDetails', this._owner, this._repo);
     return this._github.repos.get({
       owner: this._owner,
       repo: this._repo,
@@ -81,6 +83,7 @@ class GithubController {
   }
 
   getBranchDetails({branch}) {
+    console.log('getBranchDetails', this._owner, this._repo);
     return this._github.repos.getBranch({
       owner: this._owner,
       repo: this._repo,
