@@ -41,7 +41,7 @@ class CircleBot {
       let repoDetails = circleEnv.repoDetails;
       console.log('runner repoDetails', repoDetails);
       console.log('runner configuration', configuration);
-      console.log('runner circleEnv', json.stringify(circleEnv, null, 4));
+      console.log('runner circleEnv', JSON.stringify(circleEnv, null, 4));
       if (!repoDetails) {
         repoDetails = configuration.repoDetails;
       }
