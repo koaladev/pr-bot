@@ -49,17 +49,18 @@ describe('bot-runner', function() {
     });
     stubs = [];
 
-    delete process.env['TRAVIS'];
-    delete process.env['TRAVIS_EVENT_TYPE'];
-    delete process.env['TRAVIS_PULL_REQUEST'];
-    delete process.env['TRAVIS_REPO_SLUG'];
+    delete process.env['CIRCLE'];
+    delete process.env['CIRCLE_EVENT_TYPE'];
+    delete process.env['CIRCLE_PULL_REQUEST'];
+    delete process.env['CIRCLE_PROJECT_USERNAME'];
+    delete process.env['CIRCLE_PROJECT_REPONAME'];
   });
 
-  it('should instantiate Travis Bot', function() {
+  it('should instantiate Circle Bot', function() {
     new BotRunner();
   });
 
-  it('should error when no repo-details in config or travis', function() {
+  it('should error when no repo-details in config or circle', function() {
     const bot = new BotRunner({
       configPath: path.join(__dirname, '../static/no-repo-details.config.js')
     });
@@ -73,8 +74,9 @@ describe('bot-runner', function() {
     });
   });
 
-  it ('should get repo details from travis', function() {
-    process.env['TRAVIS_REPO_SLUG'] = 'gauntface/example-repo';
+  it ('should get repo details from circle', function() {
+    process.env["CIRCLE_PROJECT_USERNAME"] = "gauntface";
+    process.env["CIRCLE_PROJECT_REPONAME"] = "example-repo";
 
     const bot = new BotRunner({
       configPath: path.join(__dirname, '../static/no-repo-details.config.js')
@@ -83,7 +85,7 @@ describe('bot-runner', function() {
     return bot.run();
   })
 
-  it('should instantiate Travis Bot and print to log', function() {
+  it('should instantiate Circle Bot and print to log', function() {
     const bot = new BotRunner({
       configPath: path.join(__dirname, '../static/example.config.js')
     });
@@ -131,10 +133,10 @@ describe('bot-runner', function() {
   });
 
   it('should try to print to Github', function() {
-    process.env['TRAVIS'] = 'true';
-    process.env['TRAVIS_EVENT_TYPE'] = 'pull_request';
-    process.env['TRAVIS_PULL_REQUEST'] = '123';
-    process.env['TRAVIS_PULL_REQUEST_SHA'] = 'ABCSHA';
+    process.env['CIRCLE'] = 'true';
+    process.env['CIRCLE_EVENT_TYPE'] = 'pull_request';
+    process.env['CIRCLE_PULL_REQUEST'] = '123';
+    process.env['CIRCLE_PULL_REQUEST_SHA'] = 'ABCSHA';
 
     const deleteStub = sinon.stub(FakeGithubController.prototype, 'deletePreviousIssueComments').callsFake((input) => {
       expect(input).to.deep.equal({
@@ -171,10 +173,10 @@ describe('bot-runner', function() {
   });
 
   it('should try to print to Github without deleting previous comments', function() {
-    process.env['TRAVIS'] = 'true';
-    process.env['TRAVIS_EVENT_TYPE'] = 'pull_request';
-    process.env['TRAVIS_PULL_REQUEST'] = '123';
-    process.env['TRAVIS_PULL_REQUEST_SHA'] = 'ABCSHA';
+    process.env['CIRCLE'] = 'true';
+    process.env['CIRCLE_EVENT_TYPE'] = 'pull_request';
+    process.env['CIRCLE_PULL_REQUEST'] = '123';
+    process.env['CIRCLE_PULL_REQUEST_SHA'] = 'ABCSHA';
 
     const stateStub = sinon.stub(FakeGithubController.prototype, 'postState').callsFake((input) => {
       expect(input).to.deep.equal({
@@ -202,10 +204,10 @@ describe('bot-runner', function() {
   });
 
   it('should fail the PR', function() {
-    process.env['TRAVIS'] = 'true';
-    process.env['TRAVIS_EVENT_TYPE'] = 'pull_request';
-    process.env['TRAVIS_PULL_REQUEST'] = '123';
-    process.env['TRAVIS_PULL_REQUEST_SHA'] = 'ABCSHA';
+    process.env['CIRCLE'] = 'true';
+    process.env['CIRCLE_EVENT_TYPE'] = 'pull_request';
+    process.env['CIRCLE_PULL_REQUEST'] = '123';
+    process.env['CIRCLE_PULL_REQUEST_SHA'] = 'ABCSHA';
 
     const deleteStub = sinon.stub(FakeGithubController.prototype, 'deletePreviousIssueComments').callsFake((input) => {
       expect(input).to.deep.equal({
@@ -241,8 +243,8 @@ describe('bot-runner', function() {
     return bot.run();
   });
 
-  it('should pull from repo when its a Travis PR', function() {
-    process.env['TRAVIS_PULL_REQUEST_SHA'] = '123';
+  it('should pull from repo when its a Circle PR', function() {
+    process.env['CIRCLE_PULL_REQUEST_SHA'] = '123';
 
     const bot = new BotRunner({
       configPath: path.join(__dirname, '../static/example-with-plugin.config.js')
@@ -286,12 +288,12 @@ describe('bot-runner', function() {
     .then(() => {
       throw new Error('Expected error to be thrown.');
     }, (err) => {
-      expect(err.message).to.equal(`Unable to get the Github 'repoDetails' from Travis environment variable or the configuration file.`);
+      expect(err.message).to.equal(`Unable to get the Github 'repoDetails' from Circle environment variable or the configuration file.`);
     });
   });
 
   it('should be ok building for local folder and tmp master checkout when run locally', function() {
-    delete process.env['TRAVIS_PULL_REQUEST_SHA'];
+    delete process.env['CIRCLE_PULL_REQUEST_SHA'];
 
     const bot = new BotRunner({
       configPath: path.join(__dirname, '../static/example-with-plugin.config.js')

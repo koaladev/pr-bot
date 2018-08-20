@@ -18,7 +18,7 @@ const path = require("path");
 const execSync = require("child_process").execSync;
 const logHelper = require("../utils/log-helper");
 // const TravisEnvModel = require('../models/travis-env-model');
-const CircleEnvModel = require("../models/circleci-env-model");
+const CircleEnvModel = require("../models/circle-env-model");
 const GithubController = require("./github-controller");
 
 const TMPDIR_PREFIX = `/tmp/pr-bot/`;
