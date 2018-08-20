@@ -41,7 +41,6 @@ class CircleBot {
       let repoDetails = circleEnv.repoDetails;
       console.log('runner repoDetails', repoDetails);
       console.log('runner configuration', configuration);
-      console.log('runner circleEnv', JSON.stringify(circleEnv, null, 4));
       if (!repoDetails) {
         repoDetails = configuration.repoDetails;
       }
@@ -144,7 +143,7 @@ class CircleBot {
         };
       })
       .then(({ beforePath, afterPath }) => {
-        let buildCommand = `npm install && npm run build`;
+        let buildCommand = `yarn && yarn build:production:au`;
         if (configuration.buildCommand) {
           buildCommand = configuration.buildCommand;
         }
@@ -175,7 +174,7 @@ class CircleBot {
         }
 
         return { beforePath, afterPath };
-      }).catch(err => console.log(err));
+      });
   }
 
   _runPlugins(plugins, details) {
