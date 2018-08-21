@@ -61,6 +61,7 @@ class CircleBot {
         githubController
       )
         .then(({ beforePath, afterPath }) => {
+          logHelper.log(`Before and after done, do the plugins:`);
           return this._runPlugins(configuration.plugins, {
             beforePath,
             afterPath
@@ -142,7 +143,7 @@ class CircleBot {
         };
       })
       .then(({ beforePath, afterPath }) => {
-        let buildCommand = `yarn build:production:au`;
+        let buildCommand = `yarn && yarn build:production:au`;
         if (configuration.buildCommand) {
           buildCommand = configuration.buildCommand;
         }
