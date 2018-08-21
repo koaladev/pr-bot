@@ -69,7 +69,6 @@ class CircleBot {
         })
         .then(pluginResults => {
           logHelper.log(`pluginResults, is Circle: ${circleEnv.isCircle}, isPullRequest: ${circleEnv.isPullRequest}`);
-          logHelper.log(`circleEnv.prNumberTest: ${circleEnv.prNumberTest}`);
 
           if (!circleEnv.isCircle || !circleEnv.isPullRequest) {
             logHelper.log(`pluginResults, only log to console`);

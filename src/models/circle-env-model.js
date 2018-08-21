@@ -32,18 +32,18 @@ class CircleEnvModel {
     return process.env["CIRCLE_SHA1"];
   }
 
+  // get pullRequestNumber() {
+  //   if (
+  //     !process.env["CIRCLE_PR_NUMBER"] ||
+  //     process.env["CIRCLE_PR_NUMBER"] === "false"
+  //   ) {
+  //     return undefined;
+  //   }
+  //
+  //   return process.env["CIRCLE_PR_NUMBER"];
+  // }
+
   get pullRequestNumber() {
-    if (
-      !process.env["CIRCLE_PR_NUMBER"] ||
-      process.env["CIRCLE_PR_NUMBER"] === "false"
-    ) {
-      return undefined;
-    }
-
-    return process.env["CIRCLE_PR_NUMBER"];
-  }
-
-  get prNumberTest() {
     if (process.env["CIRCLE_PULL_REQUEST"]) {
       const prUrl = process.env["CIRCLE_PULL_REQUEST"];
       const splitted = prUrl.split('pull/');
