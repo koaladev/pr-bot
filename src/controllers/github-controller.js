@@ -76,7 +76,6 @@ class GithubController {
 
   getRepoDetails() {
     console.log('getRepoDetails', this._owner, this._repo);
-    console.log('getRepoDetails', this);
 
     return this._github.repos.get({
       owner: this._owner,
