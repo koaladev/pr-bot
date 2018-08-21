@@ -36,10 +36,13 @@ class CircleBot {
   run() {
     const circleEnv = new CircleEnvModel();
 
+    if (!circleEnv.pullRequestNumber) {
+      logHelper.log(`Not a pull request: ${circleEnv.pullRequestNumber}, exit early.`);
+      return;
+    }
 
     return this._readConfig().then(configuration => {
       let repoDetails = circleEnv.repoDetails;
-      console.log('runner repoDetails', repoDetails);
       if (!repoDetails) {
         repoDetails = configuration.repoDetails;
       }
@@ -148,7 +151,8 @@ class CircleBot {
         };
       })
       .then(({ beforePath, afterPath }) => {
-        let buildCommand = `yarn && yarn build:production:au`;
+        // let buildCommand = `yarn && yarn build:production:au`;
+        let buildCommand = `yarn && yarn generate`;
         if (configuration.buildCommand) {
           buildCommand = configuration.buildCommand;
         }
