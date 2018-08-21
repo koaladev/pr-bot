@@ -152,7 +152,7 @@ class CircleBot {
       })
       .then(({ beforePath, afterPath }) => {
         // let buildCommand = `yarn && yarn build:production:au`;
-        let buildCommand = `yarn && yarn generate`;
+        let buildCommand = `echo "no build, just files"`;
         if (configuration.buildCommand) {
           buildCommand = configuration.buildCommand;
         }
