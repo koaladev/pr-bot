@@ -19,6 +19,8 @@ const path = require('path');
 const chalk = require('chalk');
 const gzipSize = require('gzip-size');
 
+const logHelper = require("../utils/log-helper");
+
 const PluginInterface = require('./plugin-interface');
 const UNITS = require('../models/units');
 
@@ -28,12 +30,16 @@ const NEGATIVE_EMOJI = '🚫';
 class SizePlugin extends PluginInterface {
   constructor({globPattern, globOptions} = {}) {
     super('PR-Bot Size Plugin');
+    logHelper.setPrimaryPrefix("PR-Bot 🤖");
 
     this._globPattern = globPattern;
     this._globOptions = globOptions;
   }
 
   run({beforePath, afterPath} = {}) {
+    console.log('beforePath: ', beforePath);
+    console.log('afterPath: ', afterPath);
+
     if (!this._globPattern) {
       throw new Error(`The '${this.name}' requires a ` +
         `'globPattern' parameter in the constructor.`);
@@ -82,7 +88,7 @@ class SizePlugin extends PluginInterface {
         prettyLog: this.getPrettyLogResults(allFileInfo),
         markdownLog: this.getMarkdownResults(allFileInfo),
       };
-    });
+    }).catch(err => logHelper.log(`Something went wrong in promise.all run...`, err));
   }
 
   _getFileDetails(directory) {

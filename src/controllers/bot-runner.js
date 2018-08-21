@@ -40,7 +40,6 @@ class CircleBot {
     return this._readConfig().then(configuration => {
       let repoDetails = circleEnv.repoDetails;
       console.log('runner repoDetails', repoDetails);
-      console.log('runner configuration', configuration);
       if (!repoDetails) {
         repoDetails = configuration.repoDetails;
       }
@@ -143,7 +142,7 @@ class CircleBot {
         };
       })
       .then(({ beforePath, afterPath }) => {
-        let buildCommand = `yarn && yarn build:production:au`;
+        let buildCommand = `yarn build:production:au`;
         if (configuration.buildCommand) {
           buildCommand = configuration.buildCommand;
         }
