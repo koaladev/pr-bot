@@ -43,6 +43,17 @@ class CircleEnvModel {
     return process.env["CIRCLE_PR_NUMBER"];
   }
 
+  get prNumberTest() {
+    if (process.env["CIRCLE_PULL_REQUEST"]) {
+      const prUrl = process.env["CIRCLE_PULL_REQUEST"];
+      const splitted = prUrl.split('pull/');
+      if (splitted[1] !== undefined) {
+        return splitted[1];
+      }
+    }
+    return false;
+  }
+
   get isSuccessfulCircleRun() {
     // actually this doesnt exist in circleci
     // ...opportunity to manually set it after builds runs ok.
