@@ -37,8 +37,8 @@ class CircleBot {
     const circleEnv = new CircleEnvModel();
 
     if (!circleEnv.pullRequestNumber) {
-      logHelper.log(`Not a pull request: ${circleEnv.pullRequestNumber}, exit early.`);
-      return;
+      logHelper.log(`Not a pull request, ignore reporting stats.`);
+      process.exit(0); // exit gracefully.
     }
 
     return this._readConfig().then(configuration => {
