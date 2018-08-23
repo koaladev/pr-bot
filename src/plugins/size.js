@@ -37,9 +37,6 @@ class SizePlugin extends PluginInterface {
   }
 
   run({beforePath, afterPath} = {}) {
-    console.log('beforePath: ', beforePath);
-    console.log('afterPath: ', afterPath);
-
     if (!this._globPattern) {
       throw new Error(`The '${this.name}' requires a ` +
         `'globPattern' parameter in the constructor.`);
