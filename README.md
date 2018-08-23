@@ -1,3 +1,6 @@
+# CircleCI version for PR-BOT
+Find the original with Travis at: https://github.com/GoogleChromeLabs/pr-bot 
+
 # pr-bot
 
 [![Build Status](https://travis-ci.org/GoogleChromeLabs/pr-bot.svg?branch=master)](https://travis-ci.org/GoogleChromeLabs/pr-bot) [![Coverage Status](https://coveralls.io/repos/github/GoogleChromeLabs/pr-bot/badge.svg?branch=master)](https://coveralls.io/github/GoogleChromeLabs/pr-bot?branch=master) [![dependencies Status](https://david-dm.org/googlechromelabs/pr-bot/status.svg)](https://david-dm.org/googlechromelabs/pr-bot) [![devDependencies Status](https://david-dm.org/googlechromelabs/pr-bot/dev-status.svg)](https://david-dm.org/googlechromelabs/pr-bot?type=dev)
