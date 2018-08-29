@@ -143,7 +143,7 @@ class CircleBot {
 
         const afterPath = fs.mkdtempSync(TMPDIR_PREFIX);
 
-        logHelper.log(`Cloning default branch into: '${afterPath}'.`);
+        logHelper.log(`Cloning override branch into: '${afterPath}'.`);
         logHelper.log(`afterPath cloneUrl: '${cloneUrl}'.`);
         logHelper.log(`pullRequestSha: '${circleEnv.pullRequestSha}'.`);
 
