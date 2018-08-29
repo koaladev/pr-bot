@@ -45,6 +45,7 @@ class CircleBot {
       let repoDetails = circleEnv.repoDetails;
       if (!repoDetails) {
         repoDetails = configuration.repoDetails;
+        logHelper.log(`repoDetails: ${repoDetails}`);
       }
       if (!repoDetails) {
         throw new Error(
@@ -118,9 +119,12 @@ class CircleBot {
         const beforePath = fs.mkdtempSync(TMPDIR_PREFIX);
 
         logHelper.log(`Cloning default branch into: '${beforePath}'.`);
+        logHelper.log(`beforePath cloneUrl: '${cloneUrl}'.`);
         execSync(`git clone ${cloneUrl} ${beforePath}`);
 
         if (configuration.overrideBaseBranch) {
+          logHelper.log(`configuration.overrideBaseBranch: ${configuration.overrideBaseBranch}`);
+
           execSync(`git checkout ${configuration.overrideBaseBranch}`, {
             cwd: beforePath
           });
@@ -140,6 +144,9 @@ class CircleBot {
         const afterPath = fs.mkdtempSync(TMPDIR_PREFIX);
 
         logHelper.log(`Cloning default branch into: '${afterPath}'.`);
+        logHelper.log(`afterPath cloneUrl: '${cloneUrl}'.`);
+        logHelper.log(`pullRequestSha: '${circleEnv.pullRequestSha}'.`);
+
         execSync(`git clone ${cloneUrl} ${afterPath}`);
         execSync(`git checkout ${circleEnv.pullRequestSha}`, {
           cwd: afterPath
@@ -165,6 +172,7 @@ class CircleBot {
             cwd: beforePath
           });
         } catch (err) {
+          logHelper.log(`Error: '${err}'.`);
           logHelper.error(
             `Unable to run '${buildCommand}' in the "before" version.`
           );
@@ -175,6 +183,7 @@ class CircleBot {
             cwd: afterPath
           });
         } catch (err) {
+          logHelper.log(`Error: '${err}'.`);
           logHelper.error(
             `Unable to run '${buildCommand}' in the "after" version.`
           );
