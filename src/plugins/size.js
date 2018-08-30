@@ -147,14 +147,15 @@ class SizePlugin extends PluginInterface {
 
   getPrettyLogResults(allFileInfo) {
     let changedFileInfo = allFileInfo.filter((fileInfo) => {
-      return fileInfo.isNewFile === false && (fileInfo.sizeDifferenceInBytes > 1000 || fileInfo.sizeDifferenceInBytes < 1000);
+      return fileInfo.isNewFile === false && (fileInfo.sizeDifferenceInBytes !== 0);
     });
 
     const changedFileRows = changedFileInfo.map((fileInfo) => {
       const newSizeDetails = SizePlugin._convertSize(fileInfo.sizeInBytes);
       const prevSizeDetails = SizePlugin._convertSize(fileInfo.previousSize);
 
-      logHelper.log(`fileInfo.sizeDifferencePercent: ${fileInfo.sizeDifferencePercent}`)
+      logHelper.log(`fileInfo.sizeDifferenceInBytes: ${fileInfo.sizeDifferenceInBytes}`)
+      logHelper.log(`fileInfo.sizeDifferencePercent: ${fileInfo.sizeDifferencePercent}`);
 
       let percentChangeColor = chalk.dim;
       if (fileInfo.sizeDifferencePercent >= 0.1) {
