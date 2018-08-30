@@ -147,7 +147,7 @@ class SizePlugin extends PluginInterface {
 
   getPrettyLogResults(allFileInfo) {
     let changedFileInfo = allFileInfo.filter((fileInfo) => {
-      return fileInfo.isNewFile === false && (fileInfo.sizeDifferenceInBytes !== 0);
+      return fileInfo.isNewFile === false && (fileInfo.sizeDifferenceInBytes > 1000 || fileInfo.sizeDifferenceInBytes < 1000);
     });
 
     const changedFileRows = changedFileInfo.map((fileInfo) => {
