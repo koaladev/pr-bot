@@ -151,6 +151,9 @@ class SizePlugin extends PluginInterface {
       // return fileInfo.isNewFile === false && (fileInfo.sizeDifferenceInBytes !== 0); // any byte change.
     });
 
+    logHelper.log(`changedFileInfo rows: ${changedFileInfo}`);
+    logHelper.log(`changedFileInfo rows length: ${changedFileInfo.length}`);
+
     const changedFileRows = changedFileInfo.map((fileInfo) => {
       const newSizeDetails = SizePlugin._convertSize(fileInfo.sizeInBytes);
       const prevSizeDetails = SizePlugin._convertSize(fileInfo.previousSize);
@@ -241,7 +244,7 @@ class SizePlugin extends PluginInterface {
     ];
 
     let changedFileInfo = allFileInfo.filter((fileInfo) => {
-      return fileInfo.isNewFile === false && (fileInfo.sizeDifferenceInBytes !== 0);
+      return fileInfo.isNewFile === false && (Math.abs(fileInfo.sizeDifferenceInBytes) > 100);
     });
 
     const changedFileRows = this._getMDFileRows(changedFileInfo);
