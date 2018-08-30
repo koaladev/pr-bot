@@ -103,7 +103,7 @@ class GithubController {
       });
       const deletePromises = botIssues.map((botIssue) => {
         return this._github.issues.deleteComment({
-          id: botIssue.id,
+          id: botIssue.comment_id,
           owner: this._owner,
           repo: this._repo,
         });

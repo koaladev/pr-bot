@@ -154,6 +154,8 @@ class SizePlugin extends PluginInterface {
       const newSizeDetails = SizePlugin._convertSize(fileInfo.sizeInBytes);
       const prevSizeDetails = SizePlugin._convertSize(fileInfo.previousSize);
 
+      logHelper.log(`fileInfo.sizeDifferencePercent: ${fileInfo.sizeDifferencePercent}`)
+
       let percentChangeColor = chalk.dim;
       if (fileInfo.sizeDifferencePercent >= 0.1) {
         percentChangeColor = chalk.red;
@@ -168,6 +170,9 @@ class SizePlugin extends PluginInterface {
           prefix = '+';
         }
       let percentString = percentChangeColor(`${prefix}${prettyFloat}%`);
+
+      logHelper.log(`prevSizeDetails.size: ${prevSizeDetails.size}`)
+      logHelper.log(`newSizeDetails.size: ${newSizeDetails.size}`)
 
       const prevSize = parseFloat(prevSizeDetails.size).toFixed(
         prevSizeDetails.unit.decimalPlaces);
